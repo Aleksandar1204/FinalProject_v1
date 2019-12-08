@@ -2,10 +2,14 @@
   "name": "finalproject_v1",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "services/products.js",
   "scripts": {
-    "start": "",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client-install": "npm install --prefix client",
+    "start": "node services/products.js",
+    "server": "nodemon services/products.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
@@ -23,6 +27,7 @@
     "express-jwt": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.8",
+    "concurrently": "^3.6.0",
     "node-input-validator": "^4.1.0"
   }
 }

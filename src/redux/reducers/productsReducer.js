@@ -1,6 +1,6 @@
 const initialUserState = {
     products: [],
-    product:{},
+    
     
 }
 
@@ -9,7 +9,7 @@ export function productsReducer (state = initialUserState, action) {
         case 'ADD_PRODUCT' : {
             return {
                 ...state,
-                product: action.payload
+                products: [action.payload, ...state.products]
             }
         }
 

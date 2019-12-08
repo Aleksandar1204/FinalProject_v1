@@ -8,6 +8,10 @@
     "dev": "webpack-dev-server --port 8080 --compress --progress --watch --inline --hot",
     "build": "webpack --progress"
   },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "proxy": "http://localhost:8080",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Aleksandar1204/FinalProject_v1.git"

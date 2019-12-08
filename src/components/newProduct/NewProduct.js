@@ -12,12 +12,74 @@ import axios from 'axios'
 class NewProduct extends React.Component{
     constructor(props){
         super(props);
+        this.onChangeName = this.onChangeName.bind(this);
+        this.onChangeDescription = this.onChangeDescription.bind(this);
+        this.onChangeProduct = this.onChangeProduct.bind(this);
+        this.onChangeDate = this.onChangeDate.bind(this);
+        this.onChangePrice = this.onChangePrice.bind(this);
+
         this.state = {
-            
+            name:"" ,
+            description:"" ,
+            product:"" ,
+            date:"" ,
+            price:"" ,
           };
     
     }
 
+    onChangeName(e) {
+        this.setState({
+          name: e.target.value
+        })
+      }
+      onChangeDescription(e) {
+        this.setState({
+            description: e.target.value
+        })
+      }
+      onChangeProduct(e) {
+        this.setState({
+            product: e.target.value
+        })
+      }
+      onChangeDate(e) {
+        this.setState({
+            date: e.target.value
+        })
+      }
+      onChangePrice(e) {
+        this.setState({
+            price: e.target.value
+        })
+      }
+
+      onSubmit = (e) => {
+        e.preventDefault();
+        const newProduct = {
+            
+            name: this.state.name,
+            description: this.state.description,
+            product: this.state.product,
+            date: this.state.date,
+            price: this.state.price,
+          };
+
+        axios.post("http://localhost:8081/api/v1/products/",newProduct)
+    
+        
+        
+        .then(response => {
+          //zapisi vo redux
+        
+          this.props.addProductToStore(response.newProduct);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
+        
+    
 
 
 render(){
@@ -44,35 +106,40 @@ render(){
 
         <div id="new-product">
 
-        <form>
+        <form onSubmit={this.onSubmit}>
 
                 <p className="input-container"> 
                     <label className="text-field-input" for="">Product Name</label>
-                    <input type="text" className="text-field"/>
+                    <input id="name" value={this.state.name} 
+                    onChange={this.onChangeName} type="text" className="text-field" />
                 </p>
 
                 <p className="input-container"> 
                         <label className="text-field-input" for="">Product Description</label>
-                        <input type="text" className="text-field"/>
+                        <input id="description" value={this.state.description} 
+                        onChange={this.onChangeDescription} type="text" className="text-field" />
                 </p>
 
                 <p className="input-container"> 
                     <label className="text-field-input" for="">Product Type</label>
-                    <input type="text" className="text-field"/>
+                    <input id="product" value={this.state.product} 
+                    onChange={this.onChangeProduct} type="text" className="text-field"/>
                 </p>
 
                 <p className="input-container"> 
                     <label className="text-field-input" for="">Purchase Date</label>
-                    <input type="text" className="text-field"/>
+                    <input id="date" value={this.state.date} 
+                    onChange={this.onChangeDate} type="text" className="text-field" />
                 </p>
 
                 <p className="input-container">
                     <label className="text-field-input" for="">Product Price</label>
-                    <input type="text" className="text-field"/>
+                    <input id="price" value={this.state.price} 
+                    onChange={this.onChangePrice} type="text" className="text-field"/>
                 </p>
 
 
-                <button className="primary-button">CREATE PRODUCT</button>
+                <button className="primary-button"  >CREATE PRODUCT</button>
            
                 
             </form>
@@ -104,7 +171,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-      addProductToStore: data => dispatch(addProductToStore(data)),
+      addProductToStore: product => dispatch(addProductToStore(product)),
     };
   }
 
