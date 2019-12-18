@@ -56,8 +56,8 @@ class NewProduct extends React.Component{
 
       onSubmit = (e) => {
         e.preventDefault();
+
         const newProduct = {
-            
             name: this.state.name,
             description: this.state.description,
             product: this.state.product,
@@ -67,16 +67,18 @@ class NewProduct extends React.Component{
 
         axios.post("http://localhost:8081/api/v1/products/",newProduct)
     
-        
+       
         
         .then(response => {
           //zapisi vo redux
-        
-          this.props.addProductToStore(response.newProduct);
+        console.log(response.product)
+          
         })
         .catch(error => {
           console.log(error);
         })
+        this.props.addProductToStore();
+        
     }
         
     
@@ -85,7 +87,7 @@ class NewProduct extends React.Component{
 render(){
     return(
         <React.Fragment>
-<div id="products">
+
         <div className="navigator">
              <div className="buttons-nav">
             <button className="products-button">PRODUCTS</button>
@@ -110,31 +112,31 @@ render(){
 
                 <p className="input-container"> 
                     <label className="text-field-input" for="">Product Name</label>
-                    <input id="name" value={this.state.name} 
+                    <input  value={this.state.name} 
                     onChange={this.onChangeName} type="text" className="text-field" />
                 </p>
 
                 <p className="input-container"> 
                         <label className="text-field-input" for="">Product Description</label>
-                        <input id="description" value={this.state.description} 
+                        <input  value={this.state.description} 
                         onChange={this.onChangeDescription} type="text" className="text-field" />
                 </p>
 
                 <p className="input-container"> 
                     <label className="text-field-input" for="">Product Type</label>
-                    <input id="product" value={this.state.product} 
+                    <input  value={this.state.product} 
                     onChange={this.onChangeProduct} type="text" className="text-field"/>
                 </p>
 
                 <p className="input-container"> 
                     <label className="text-field-input" for="">Purchase Date</label>
-                    <input id="date" value={this.state.date} 
+                    <input  value={this.state.date} 
                     onChange={this.onChangeDate} type="text" className="text-field" />
                 </p>
 
                 <p className="input-container">
                     <label className="text-field-input" for="">Product Price</label>
-                    <input id="price" value={this.state.price} 
+                    <input  value={this.state.price} 
                     onChange={this.onChangePrice} type="text" className="text-field"/>
                 </p>
 
@@ -156,7 +158,7 @@ render(){
     
     </div>
        
-    </div>
+    
   
         </React.Fragment>
     )

@@ -5,6 +5,7 @@ var jwt = require('express-jwt');
 const config = require('../config/index.js');
 const DBconn = require('../db/connection');
 const products = require('../handlers/products');
+const cors = require('cors');
 
 var c = config.getConfig('db');
 
@@ -17,6 +18,8 @@ api.use(bodyParser.json());
 //         {secret: config.getConfig('jwt').key}
 //     )
 // );
+
+api.use(cors());
 
 api.get('/api/v1/products', products.getAll);
 api.get('/api/v1/products/:id', products.getOne);
