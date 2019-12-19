@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 var jwt = require('express-jwt');
+const path = require('path');
 
 const config = require('../config/index.js');
 const DBconn = require('../db/connection');
@@ -28,11 +29,21 @@ api.put('/api/v1/products/:id', products.replace);
 api.patch('/api/v1/products/:id', products.update);
 api.delete('/api/v1/products/:id', products.remove);
 
-api.listen(8081, err =>{
+if (process.env.NODE_ENV === 'production') {
+    
+    api.use(express.static('client/build'));
+
+    api.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+      });
+    }
+    const port = process.env.PORT || 8080;
+
+api.listen(8080, err =>{
     if(err){
         console.log('could not start server');
         console.log(err);
         return;
     }
-    console.log('server started successfully on port 8081');
+    console.log(`server started successfully on port ${port}`);
 });
