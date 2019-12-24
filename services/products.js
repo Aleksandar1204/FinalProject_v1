@@ -37,9 +37,9 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
       });
     }
-    const port = process.env.PORT || 8080;
+    const port = process.env.PORT || 8081;
 
-api.listen(8080, err =>{
+api.listen(8081, err =>{
     if(err){
         console.log('could not start server');
         console.log(err);

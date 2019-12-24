@@ -33,11 +33,11 @@ api.use(function (err, req, res, next) {
     }
 });
 
-api.listen(8081, err => {
+api.listen(8082, err => {
     if(err){
         console.log('Could not start server');
         console.log(err);
         return;
     }
-    console.log('Server successfully started on port 8081');
+    console.log('Server successfully started on port 8082');
 });

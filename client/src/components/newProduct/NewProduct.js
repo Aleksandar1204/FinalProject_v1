@@ -3,7 +3,7 @@ import {
    addProductToStore
   } from "../../redux/actions/productsAction";
 import {connect} from 'react-redux'
-
+import store from "../../redux/store.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
@@ -66,25 +66,24 @@ class NewProduct extends React.Component{
           };
 
         axios.post("http://localhost:8081/api/v1/products/",newProduct)
-    
-       
-        
+
         .then(response => {
-          //zapisi vo redux
-        console.log(response.product)
           
+        console.log(response);
         })
+        
         .catch(error => {
           console.log(error);
         })
-        this.props.addProductToStore();
+        store.dispatch(addProductToStore())
         
-    }
+      }
         
     
 
 
 render(){
+ 
     return(
         <React.Fragment>
 
@@ -181,3 +180,4 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
   )(NewProduct);
+ 
